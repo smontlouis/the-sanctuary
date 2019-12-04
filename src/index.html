@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title></title>
+    <!-- <meta name="description" content="" />
+
+    <meta itemprop="name" content="" />
+    <meta itemprop="description" content="" />
+    <meta itemprop="image" content="" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="" />
+
+    <meta property="og:site_name" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="favicon/safari-pinned-tab.svg"
+      color="#ff8908"
+    />
+    <meta name="apple-mobile-web-app-title" content="" />
+    <meta name="application-name" content="" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" /> -->
+    <link rel="stylesheet" href="./style/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <canvas class="canvas js-canvas"></canvas>
+    <script type="x-shader/x-vertex" id="sem-vs">
+
+      varying vec2 vN;
+
+      void main() {
+
+        vec3 e = normalize( vec3( modelViewMatrix * vec4( position, 1.0 ) ) );
+        vec3 n = normalize( normalMatrix * normal );
+
+        vec3 r = reflect( e, n );
+        float m = 2. * sqrt( pow( r.x, 2. ) + pow( r.y, 2. ) + pow( r.z + 1., 2. ) );
+        vN = r.xy / m + .5;
+
+        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1. );
+
+      }
+    </script>
+
+    <script type="x-shader/x-vertex" id="sem-fs">
+
+      uniform sampler2D tMatCap;
+
+      varying vec2 vN;
+
+      void main() {
+
+        vec3 base = texture2D( tMatCap, vN ).rgb;
+        gl_FragColor = vec4( base, 0.44 );
+
+      }
+    </script>
+    <script src="./javascript/index.js"></script>
+  </body>
+</html>
