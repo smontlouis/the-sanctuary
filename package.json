@@ -29,5 +29,7 @@
     "staticPath": "static",
     "watcherGlob": "**"
   },
-  "dependencies": {}
+  "dependencies": {
+    "three.interaction": "^0.2.2"
+  }
 }

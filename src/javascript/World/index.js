@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Floor from './Floor.js'
 import Materials from './Materials.js'
+import Interaction from './Interaction.js'
 import { TweenLite } from 'gsap/TweenLite'
 
 export default class {
@@ -14,22 +15,24 @@ export default class {
     this.camera = _options.camera
     this.renderer = _options.renderer
     this.passes = _options.passes
+    this.scene = _options.scene
 
     // Debug
     if (this.debug) {
       this.debugFolder = this.debug.addFolder('world')
-      this.debugFolder.open()
     }
 
     // Set up
     this.container = new THREE.Object3D()
     this.container.matrixAutoUpdate = false
 
-    this.setAxes()
+    // this.setAxes()
     this.setFloor()
     this.setMaterials()
     this.setTabernacle()
+    this.setObjects()
     this.setFloorShadow()
+    this.setInteraction()
     this.setReveal()
   }
 
@@ -60,18 +63,31 @@ export default class {
 
         let color = null
         switch (child.material.name) {
+          case 'Couverture 1':
+            color = 'purple'
+            break
+          case 'Couverture 2':
+            color = 'blue'
+            break
+          case 'Couverture 3':
+            color = 'beige'
+            break
+          case 'Airain':
+            color = 'bronze'
+            break
           case 'Gold':
-            color = 'orange'
+            color = 'gold'
+            break
+          case 'Silver':
+            color = 'silver'
             break
           case 'Manne':
-          case 'Airain':
           case 'Wood':
           case 'Bread':
           case 'Ground':
           case 'Rope':
             color = 'brown'
             break
-          case 'Silver':
           case 'Pierre':
             color = 'gray'
             break
@@ -96,12 +112,78 @@ export default class {
   }
 
   setTabernacle() {
-    const tabernacle = this.resources.items.tabernacle.scene
+    this.tabernacle = this.resources.items.tabernacle.scene
+    this.updateMaterials(this.tabernacle)
 
-    this.updateMaterials(tabernacle)
-    tabernacle.rotation.set(Math.PI / 2, 0, 0)
+    this.tabernacle.rotation.set(Math.PI / 2, 0, 0)
 
-    this.container.add(this.resources.items.tabernacle.scene)
+    this.container.add(this.tabernacle)
+  }
+
+  setObjects() {
+    const meshArray = [
+      'tente',
+      'couverture',
+      'couverture_1',
+      'couverture_2',
+      'converture-lieu-saint',
+      'couverture-lieu-tres-saint',
+      'plots',
+      'murs',
+      'aies',
+      'mur-1',
+      'mur-2',
+      'mur-west',
+      'poteaux-interieurs-1',
+      'poteaux-interieurs-2',
+      'clou-rope',
+      'cuve',
+      'eau',
+      'kolam_basuh',
+      'cloture',
+      'autel',
+      'autel-barres',
+      'autel-base',
+      'autel-cornes',
+      'poteaux-interieurs',
+      'table-des-pains',
+      'bol-1',
+      'bol-2',
+      'bread',
+      'carafe',
+      'table',
+      'chandelier',
+      'chandelier-base',
+      'chandelier-lumieres',
+      'altar',
+      'tabernacle',
+      'baton-aaron',
+      'bol-de-manne',
+      'propitiatoire',
+      'tabernacle-base',
+      'table-de-pierre'
+    ]
+
+    const lookFor = name => {
+      const descend = object => {
+        if (object.name === name) {
+          return object
+        }
+        for (const child of object.children) {
+          const found = descend(child)
+          if (found) {
+            return found
+          }
+        }
+      }
+
+      return descend(this.tabernacle)
+    }
+
+    this.objects = {}
+    meshArray.forEach(element => {
+      this.objects[element] = lookFor(element)
+    })
   }
 
   setFloorShadow() {
@@ -125,27 +207,42 @@ export default class {
     this.container.add(mesh)
   }
 
+  setInteraction() {
+    this.interactions = new Interaction({
+      config: this.config,
+      debug: this.debug,
+      resources: this.resources,
+      time: this.time,
+      sizes: this.sizes,
+      camera: this.camera,
+      renderer: this.renderer,
+      passes: this.passes,
+      objects: this.objects,
+      scene: this.scene
+    })
+  }
+
   setReveal() {
     this.reveal = {}
-    this.reveal.matcapsProgress = 0
-    this.reveal.floorShadowsProgress = 0
+    this.reveal.matcapsProgress = 1
+    this.reveal.floorShadowsProgress = 1
     this.reveal.previousMatcapsProgress = null
     this.reveal.previousFloorShadowsProgress = null
 
     // Go method
     this.reveal.go = () => {
-      TweenLite.fromTo(
-        this.reveal,
-        2,
-        { matcapsProgress: 0 },
-        { matcapsProgress: 1 }
-      )
-      TweenLite.fromTo(
-        this.reveal,
-        2,
-        { floorShadowsProgress: 0 },
-        { floorShadowsProgress: 1, delay: 0.5 }
-      )
+      // TweenLite.fromTo(
+      //   this.reveal,
+      //   2,
+      //   { matcapsProgress: 0 },
+      //   { matcapsProgress: 1 }
+      // )
+      // TweenLite.fromTo(
+      //   this.reveal,
+      //   2,
+      //   { floorShadowsProgress: 0 },
+      //   { floorShadowsProgress: 1, delay: 0.5 }
+      // )
 
       // Time tick
       this.time.on('tick', () => {

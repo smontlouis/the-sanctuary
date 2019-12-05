@@ -11,7 +11,6 @@ export default class Materials {
     // Debug
     if (this.debug) {
       this.debugFolder = this.debug.addFolder('materials')
-      this.debugFolder.open()
     }
 
     // Set up
@@ -123,6 +122,24 @@ export default class Materials {
     this.shades.items.yellow.uniforms.matcap.value = this.resources.items.matcapYellowTexture
     this.items.yellow = this.shades.items.yellow
 
+    // Bronze
+    this.shades.items.bronze = new MatcapMaterial()
+    this.shades.items.bronze.name = 'shadeBronze'
+    this.shades.items.bronze.uniforms.matcap.value = this.resources.items.matcapBronzeTexture
+    this.items.bronze = this.shades.items.bronze
+
+    // Gold
+    this.shades.items.gold = new MatcapMaterial()
+    this.shades.items.gold.name = 'shadeBronze'
+    this.shades.items.gold.uniforms.matcap.value = this.resources.items.matcapGoldTexture
+    this.items.gold = this.shades.items.gold
+
+    // Silver
+    this.shades.items.silver = new MatcapMaterial()
+    this.shades.items.silver.name = 'shadeSilver'
+    this.shades.items.silver.uniforms.matcap.value = this.resources.items.matcapSilverTexture
+    this.items.silver = this.shades.items.silver
+
     // Update materials uniforms
     this.shades.updateMaterials = () => {
       this.shades.uniforms.uIndirectColor = new THREE.Color(
@@ -146,7 +163,6 @@ export default class Materials {
     // Debug
     if (this.debug) {
       const folder = this.debugFolder.addFolder('shades')
-      folder.open()
 
       folder
         .add(this.shades.uniforms, 'uIndirectDistanceAmplitude')
@@ -220,7 +236,6 @@ export default class Materials {
     // Debug
     if (this.debug) {
       const folder = this.debugFolder.addFolder('floorShadow')
-      folder.open()
 
       folder
         .addColor(this.items.floorShadow, 'shadowColor')

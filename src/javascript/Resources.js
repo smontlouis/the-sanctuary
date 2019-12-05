@@ -4,7 +4,10 @@ import Loader from './Utils/Loader.js'
 import EventEmitter from './Utils/EventEmitter.js'
 
 // Matcaps
+import matcapGoldSource from '../models/matcaps/gold.png'
+import matcapSilverSource from '../models/matcaps/silver.png'
 import matcapBeigeSource from '../models/matcaps/beige.png'
+import matcapBronzeSource from '../models/matcaps/bronze.png'
 import matcapBlackSource from '../models/matcaps/black.png'
 import matcapOrangeSource from '../models/matcaps/orange.png'
 import matcapRedSource from '../models/matcaps/red.png'
@@ -19,7 +22,7 @@ import matcapYellowSource from '../models/matcaps/yellow.png'
 import floorShadowSource from '../models/static/floorShadow.png'
 
 // Intro
-import tabernacle from '../models/tabernacle/base.glb'
+import tabernacle from '../models/tabernacle/the_sanctuary.glb'
 
 export default class Resources extends EventEmitter {
   constructor() {
@@ -30,6 +33,7 @@ export default class Resources extends EventEmitter {
 
     this.loader.load([
       // Matcaps
+      { name: 'matcapBronze', source: matcapBronzeSource, type: 'texture' },
       { name: 'matcapBeige', source: matcapBeigeSource, type: 'texture' },
       { name: 'matcapBlack', source: matcapBlackSource, type: 'texture' },
       { name: 'matcapOrange', source: matcapOrangeSource, type: 'texture' },
@@ -46,6 +50,8 @@ export default class Resources extends EventEmitter {
       { name: 'matcapPurple', source: matcapPurpleSource, type: 'texture' },
       { name: 'matcapBlue', source: matcapBlueSource, type: 'texture' },
       { name: 'matcapYellow', source: matcapYellowSource, type: 'texture' },
+      { name: 'matcapGold', source: matcapGoldSource, type: 'texture' },
+      { name: 'matcapSilver', source: matcapSilverSource, type: 'texture' },
       { name: 'floorShadow', source: floorShadowSource, type: 'texture' },
 
       // Temple
