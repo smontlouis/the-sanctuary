@@ -30,6 +30,7 @@
     "watcherGlob": "**"
   },
   "dependencies": {
+    "canvg": "^3.0.1",
     "three.interaction": "^0.2.2"
   }
 }

@@ -32,6 +32,7 @@ export default class {
     this.setTabernacle()
     this.setObjects()
     this.setFloorShadow()
+    this.setLabels()
     this.setInteraction()
     this.setReveal()
   }
@@ -204,6 +205,31 @@ export default class {
 
     this.floorShadows = []
     this.floorShadows.push(mesh)
+    this.container.add(mesh)
+  }
+
+  setLabels() {
+    // Label
+    const size = 4
+    const geometry = new THREE.PlaneBufferGeometry(size, size / 3)
+    const texture = this.resources.items.interieurLabelTexture
+    texture.magFilter = THREE.NearestFilter
+    texture.minFilter = THREE.LinearFilter
+
+    const material = new THREE.MeshBasicMaterial({
+      transparent: true,
+      alphaMap: texture,
+      color: 0x355069,
+      depthWrite: false,
+      opacity: 0.4
+    })
+
+    const mesh = new THREE.Mesh(geometry, material)
+    mesh.position.x = 5.5
+    mesh.position.y = 1
+    mesh.position.z = 0.1
+    mesh.rotation.set(0, 0, Math.PI / 2)
+    this.objects.interieurLabel = mesh
     this.container.add(mesh)
   }
 

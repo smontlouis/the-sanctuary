@@ -10,4 +10,6 @@ if (module.hot) {
     window.application.destructor()
     window.application = null
   })
+
+  // module.hot.accept()
 }

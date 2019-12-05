@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import canvg from 'canvg'
 
 import Loader from './Utils/Loader.js'
 import EventEmitter from './Utils/EventEmitter.js'
@@ -19,10 +20,16 @@ import matcapEmeraldGreenSource from '../models/matcaps/emeraldGreen.png'
 import matcapPurpleSource from '../models/matcaps/purple.png'
 import matcapBlueSource from '../models/matcaps/blue.png'
 import matcapYellowSource from '../models/matcaps/yellow.png'
+
+// Shadow
 import floorShadowSource from '../models/static/floorShadow.png'
 
-// Intro
+// Tabernacle
 import tabernacle from '../models/tabernacle/the_sanctuary.glb'
+
+// Text
+import interieurLabelSource from '../models/static/other.png'
+import interieurLabelSvgSource from '../models/static/other.svg'
 
 export default class Resources extends EventEmitter {
   constructor() {
@@ -52,7 +59,16 @@ export default class Resources extends EventEmitter {
       { name: 'matcapYellow', source: matcapYellowSource, type: 'texture' },
       { name: 'matcapGold', source: matcapGoldSource, type: 'texture' },
       { name: 'matcapSilver', source: matcapSilverSource, type: 'texture' },
+
+      // Shadow
       { name: 'floorShadow', source: floorShadowSource, type: 'texture' },
+
+      // Text
+      {
+        name: 'interieurLabel',
+        source: interieurLabelSource,
+        type: 'texture'
+      },
 
       // Temple
       { name: 'tabernacle', source: tabernacle }

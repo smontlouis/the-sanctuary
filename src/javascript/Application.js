@@ -342,6 +342,6 @@ export default class Application {
 
     this.camera.orbitControls.dispose()
     this.renderer.dispose()
-    this.debug.destroy()
+    this.debug && this.debug.destroy()
   }
 }
