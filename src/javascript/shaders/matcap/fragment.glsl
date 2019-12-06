@@ -1,4 +1,3 @@
-#define TOTO
 #define MATCAP
 #define USE_MATCAP
 

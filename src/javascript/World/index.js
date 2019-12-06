@@ -105,6 +105,7 @@ export default class {
         }
         child.material = this.materials.shades.items[color]
         child.material.side = THREE.DoubleSide
+        child.material.transparent = true
       }
       if (child.children) {
         this.updateMaterials(child)
@@ -200,8 +201,8 @@ export default class {
 
     const mesh = new THREE.Mesh(geometry, material)
     mesh.position.set(-0.05, 0, 0)
-    // mesh.matrixAutoUpdate = false
-    // mesh.updateMatrix()
+    mesh.matrixAutoUpdate = false
+    mesh.updateMatrix()
 
     this.floorShadows = []
     this.floorShadows.push(mesh)

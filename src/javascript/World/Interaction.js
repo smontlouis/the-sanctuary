@@ -1,5 +1,18 @@
+import * as THREE from 'three'
 import { Interaction } from 'three.interaction'
 import { TweenLite } from 'gsap/TweenLite'
+
+const updateObjProp = (obj, fn) => {
+  if (obj instanceof THREE.Mesh) {
+    fn(obj)
+  }
+
+  if (obj.children.length) {
+    for (const child of obj.children) {
+      updateObjProp(child, fn)
+    }
+  }
+}
 
 export default class {
   constructor(_options) {
@@ -21,18 +34,26 @@ export default class {
       this.camera.instance
     )
 
-    this.objects.interieurLabel.on('mouseover', ev => {
+    this.objects.cuve.on('mouseover', ev => {
       const obj = ev.data.target
+      console.log(obj)
+
       document.body.style.cursor = 'pointer'
-      TweenLite.to(obj.material, 1, { opacity: 1 })
+      updateObjProp(obj, o => {
+        TweenLite.to(o.material, 0.3, { opacity: 0 })
+      })
+
       TweenLite.to(obj.position, 0.3, { z: 0.05 })
     })
 
-    this.objects.interieurLabel.on('mouseout', ev => {
+    this.objects.cuve.on('mouseout', ev => {
       document.body.style.cursor = 'default'
 
       const obj = ev.data.target
-      TweenLite.to(obj.material, 0.3, { opacity: 0.4 })
+      updateObjProp(obj, o => {
+        TweenLite.to(o.material, 0.3, { opacity: 1 })
+      })
+
       TweenLite.to(obj.position, 0.3, { z: 0.01 })
     })
 
