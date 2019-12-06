@@ -53,112 +53,92 @@ export default class Materials {
     // White
     this.shades.items.white = new MatcapMaterial()
     this.shades.items.white.name = 'shadeWhite'
-    this.shades.items.white.uniforms.matcap.value = this.resources.items.matcapWhiteTexture
+    this.shades.items.white.matcap = this.resources.items.matcapWhiteTexture
     this.items.white = this.shades.items.white
 
     // Orange
     this.shades.items.orange = new MatcapMaterial()
     this.shades.items.orange.name = 'shadeOrange'
-    this.shades.items.orange.uniforms.matcap.value = this.resources.items.matcapOrangeTexture
+    this.shades.items.orange.matcap = this.resources.items.matcapOrangeTexture
     this.items.orange = this.shades.items.orange
 
     // Green
     this.shades.items.green = new MatcapMaterial()
     this.shades.items.green.name = 'shadeGreen'
-    this.shades.items.green.uniforms.matcap.value = this.resources.items.matcapGreenTexture
+    this.shades.items.green.matcap = this.resources.items.matcapGreenTexture
     this.items.green = this.shades.items.green
 
     // Brown
     this.shades.items.brown = new MatcapMaterial()
     this.shades.items.brown.name = 'shadeBrown'
-    this.shades.items.brown.uniforms.matcap.value = this.resources.items.matcapBrownTexture
+    this.shades.items.brown.matcap = this.resources.items.matcapBrownTexture
     this.items.brown = this.shades.items.brown
 
     // Gray
     this.shades.items.gray = new MatcapMaterial()
     this.shades.items.gray.name = 'shadeGray'
-    this.shades.items.gray.uniforms.matcap.value = this.resources.items.matcapGrayTexture
+    this.shades.items.gray.matcap = this.resources.items.matcapGrayTexture
     this.items.gray = this.shades.items.gray
 
     // Beige
     this.shades.items.beige = new MatcapMaterial()
     this.shades.items.beige.name = 'shadeBeige'
-    this.shades.items.beige.uniforms.matcap.value = this.resources.items.matcapBeigeTexture
+    this.shades.items.beige.matcap = this.resources.items.matcapBeigeTexture
     this.items.beige = this.shades.items.beige
 
     // Red
     this.shades.items.red = new MatcapMaterial()
     this.shades.items.red.name = 'shadeRed'
-    this.shades.items.red.uniforms.matcap.value = this.resources.items.matcapRedTexture
+    this.shades.items.red.matcap = this.resources.items.matcapRedTexture
     this.items.red = this.shades.items.red
 
     // Black
     this.shades.items.black = new MatcapMaterial()
     this.shades.items.black.name = 'shadeBlack'
-    this.shades.items.black.uniforms.matcap.value = this.resources.items.matcapBlackTexture
+    this.shades.items.black.matcap = this.resources.items.matcapBlackTexture
     this.items.black = this.shades.items.black
 
     // Green emerald
     this.shades.items.emeraldGreen = new MatcapMaterial()
     this.shades.items.emeraldGreen.name = 'shadeEmeraldGreen'
-    this.shades.items.emeraldGreen.uniforms.matcap.value = this.resources.items.matcapEmeraldGreenTexture
+    this.shades.items.emeraldGreen.matcap = this.resources.items.matcapEmeraldGreenTexture
     this.items.emeraldGreen = this.shades.items.emeraldGreen
 
     // Purple
     this.shades.items.purple = new MatcapMaterial()
     this.shades.items.purple.name = 'shadePurple'
-    this.shades.items.purple.uniforms.matcap.value = this.resources.items.matcapPurpleTexture
+    this.shades.items.purple.matcap = this.resources.items.matcapPurpleTexture
     this.items.purple = this.shades.items.purple
 
     // Blue
     this.shades.items.blue = new MatcapMaterial()
     this.shades.items.blue.name = 'shadeBlue'
-    this.shades.items.blue.uniforms.matcap.value = this.resources.items.matcapBlueTexture
+    this.shades.items.blue.matcap = this.resources.items.matcapBlueTexture
     this.items.blue = this.shades.items.blue
 
     // Yellow
     this.shades.items.yellow = new MatcapMaterial()
     this.shades.items.yellow.name = 'shadeYellow'
-    this.shades.items.yellow.uniforms.matcap.value = this.resources.items.matcapYellowTexture
+    this.shades.items.yellow.matcap = this.resources.items.matcapYellowTexture
     this.items.yellow = this.shades.items.yellow
 
     // Bronze
     this.shades.items.bronze = new MatcapMaterial()
     this.shades.items.bronze.name = 'shadeBronze'
-    this.shades.items.bronze.uniforms.matcap.value = this.resources.items.matcapBronzeTexture
+    this.shades.items.bronze.matcap = this.resources.items.matcapBronzeTexture
     this.items.bronze = this.shades.items.bronze
 
     // Gold
     this.shades.items.gold = new MatcapMaterial()
     this.shades.items.gold.name = 'shadeBronze'
-    this.shades.items.gold.uniforms.matcap.value = this.resources.items.matcapGoldTexture
+    this.shades.items.gold.matcap = this.resources.items.matcapGoldTexture
     this.items.gold = this.shades.items.gold
 
     // Silver
     this.shades.items.silver = new MatcapMaterial()
     this.shades.items.silver.name = 'shadeSilver'
-    this.shades.items.silver.uniforms.matcap.value = this.resources.items.matcapSilverTexture
+    this.shades.items.silver.matcap = this.resources.items.matcapSilverTexture
     this.items.silver = this.shades.items.silver
-
-    // Update materials uniforms
-    this.shades.updateMaterials = () => {
-      this.shades.uniforms.uIndirectColor = new THREE.Color(
-        this.shades.indirectColor
-      )
-
-      // Each uniform
-      for (const _uniformName in this.shades.uniforms) {
-        const _uniformValue = this.shades.uniforms[_uniformName]
-
-        // Each material
-        for (const _materialKey in this.shades.items) {
-          const material = this.shades.items[_materialKey]
-          material.uniforms[_uniformName].value = _uniformValue
-        }
-      }
-    }
-
-    this.shades.updateMaterials()
 
     // Debug
     if (this.debug) {

@@ -60,8 +60,6 @@ export default class {
   updateMaterials(obj) {
     for (const child of obj.children) {
       if (child instanceof THREE.Mesh) {
-        console.log(child.material.name)
-
         let color = null
         switch (child.material.name) {
           case 'Couverture 1':
@@ -228,7 +226,7 @@ export default class {
     const mesh = new THREE.Mesh(geometry, material)
     mesh.position.x = 5.5
     mesh.position.y = 1
-    mesh.position.z = 0.1
+    mesh.position.z = 0.01
     mesh.rotation.set(0, 0, Math.PI / 2)
     this.objects.interieurLabel = mesh
     this.container.add(mesh)
@@ -251,42 +249,13 @@ export default class {
 
   setReveal() {
     this.reveal = {}
-    this.reveal.matcapsProgress = 1
     this.reveal.floorShadowsProgress = 1
-    this.reveal.previousMatcapsProgress = null
     this.reveal.previousFloorShadowsProgress = null
 
     // Go method
     this.reveal.go = () => {
-      // TweenLite.fromTo(
-      //   this.reveal,
-      //   2,
-      //   { matcapsProgress: 0 },
-      //   { matcapsProgress: 1 }
-      // )
-      // TweenLite.fromTo(
-      //   this.reveal,
-      //   2,
-      //   { floorShadowsProgress: 0 },
-      //   { floorShadowsProgress: 1, delay: 0.5 }
-      // )
-
       // Time tick
       this.time.on('tick', () => {
-        // Matcap progress changed
-        if (
-          this.reveal.matcapsProgress !== this.reveal.previousMatcapsProgress
-        ) {
-          // Update each material
-          for (const _materialKey in this.materials.shades.items) {
-            const material = this.materials.shades.items[_materialKey]
-            material.uniforms.uRevealProgress.value = this.reveal.matcapsProgress
-          }
-
-          // Save
-          this.reveal.previousMatcapsProgress = this.reveal.matcapsProgress
-        }
-
         // Matcap progress changed
         if (
           this.reveal.floorShadowsProgress !==
@@ -304,12 +273,6 @@ export default class {
 
       // Debug
       if (this.debug) {
-        this.debugFolder
-          .add(this.reveal, 'matcapsProgress')
-          .step(0.0001)
-          .min(0)
-          .max(1)
-          .name('matcapsProgress')
         this.debugFolder
           .add(this.reveal, 'floorShadowsProgress')
           .step(0.0001)

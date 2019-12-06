@@ -14,8 +14,42 @@ const updateObjProp = (obj, fn) => {
   }
 }
 
+const animateHover = (obj, z, opacity) => {
+  const originalPositionZ = obj.position.z
+  const originalOpacity = obj.material.opacity
+
+  obj.on('mouseover', ev => {
+    document.body.style.cursor = 'pointer'
+    if (opacity) {
+      updateObjProp(obj, o => {
+        o.material = o.material.clone()
+        TweenLite.to(o.material, 0.3, { opacity: opacity })
+      })
+    }
+
+    if (z) {
+      TweenLite.to(obj.position, 0.3, { z: originalPositionZ + z })
+    }
+  })
+
+  obj.on('mouseout', ev => {
+    document.body.style.cursor = 'default'
+
+    const obj = ev.data.target
+    if (opacity) {
+      updateObjProp(obj, o => {
+        TweenLite.to(o.material, 0.3, { opacity: originalOpacity })
+      })
+    }
+
+    if (z) {
+      TweenLite.to(obj.position, 0.3, { z: originalPositionZ })
+    }
+  })
+}
+
 export default class {
-  constructor(_options) {
+  constructor (_options) {
     // Options
     this.config = _options.config
     this.debug = _options.debug
@@ -34,28 +68,7 @@ export default class {
       this.camera.instance
     )
 
-    this.objects.cuve.on('mouseover', ev => {
-      const obj = ev.data.target
-      console.log(obj)
-
-      document.body.style.cursor = 'pointer'
-      updateObjProp(obj, o => {
-        TweenLite.to(o.material, 0.3, { opacity: 0 })
-      })
-
-      TweenLite.to(obj.position, 0.3, { z: 0.05 })
-    })
-
-    this.objects.cuve.on('mouseout', ev => {
-      document.body.style.cursor = 'default'
-
-      const obj = ev.data.target
-      updateObjProp(obj, o => {
-        TweenLite.to(o.material, 0.3, { opacity: 1 })
-      })
-
-      TweenLite.to(obj.position, 0.3, { z: 0.01 })
-    })
+    animateHover(this.objects.interieurLabel, 0.04, 1)
 
     console.log(this.objects)
   }
