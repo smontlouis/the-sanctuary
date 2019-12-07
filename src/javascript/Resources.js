@@ -25,14 +25,13 @@ import matcapYellowSource from '../models/matcaps/yellow.png'
 import floorShadowSource from '../models/static/floorShadow.png'
 
 // Tabernacle
-import tabernacle from '../models/tabernacle/the_sanctuary.glb'
+import tabernacle from '../models/tabernacle/base.glb'
 
 // Text
 import interieurLabelSource from '../models/static/other.png'
-import interieurLabelSvgSource from '../models/static/other.svg'
 
 export default class Resources extends EventEmitter {
-  constructor() {
+  constructor () {
     super()
 
     this.loader = new Loader()

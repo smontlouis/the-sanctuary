@@ -69,7 +69,5 @@ export default class {
     )
 
     animateHover(this.objects.interieurLabel, 0.04, 1)
-
-    console.log(this.objects)
   }
 }

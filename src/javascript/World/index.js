@@ -5,7 +5,7 @@ import Interaction from './Interaction.js'
 import { TweenLite } from 'gsap/TweenLite'
 
 export default class {
-  constructor(_options) {
+  constructor (_options) {
     // Options
     this.config = _options.config
     this.debug = _options.debug
@@ -37,12 +37,12 @@ export default class {
     this.setReveal()
   }
 
-  setAxes() {
+  setAxes () {
     this.axis = new THREE.AxesHelper()
     this.container.add(this.axis)
   }
 
-  setFloor() {
+  setFloor () {
     this.floor = new Floor({
       debug: this.debugFolder
     })
@@ -50,14 +50,14 @@ export default class {
     this.container.add(this.floor.container)
   }
 
-  setMaterials() {
+  setMaterials () {
     this.materials = new Materials({
       resources: this.resources,
       debug: this.debugFolder
     })
   }
 
-  updateMaterials(obj) {
+  updateMaterials (obj) {
     for (const child of obj.children) {
       if (child instanceof THREE.Mesh) {
         let color = null
@@ -111,7 +111,7 @@ export default class {
     }
   }
 
-  setTabernacle() {
+  setTabernacle () {
     this.tabernacle = this.resources.items.tabernacle.scene
     this.updateMaterials(this.tabernacle)
 
@@ -120,7 +120,7 @@ export default class {
     this.container.add(this.tabernacle)
   }
 
-  setObjects() {
+  setObjects () {
     const meshArray = [
       'tente',
       'couverture',
@@ -179,6 +179,7 @@ export default class {
 
       return descend(this.tabernacle)
     }
+    console.log(this.tabernacle)
 
     this.objects = {}
     meshArray.forEach(element => {
@@ -186,7 +187,7 @@ export default class {
     })
   }
 
-  setFloorShadow() {
+  setFloorShadow () {
     // Create floor manually because of missing UV
     const geometry = new THREE.PlaneBufferGeometry(62.5, 62.5, 0, 0)
     const material = this.materials.items.floorShadow.clone()
@@ -207,7 +208,7 @@ export default class {
     this.container.add(mesh)
   }
 
-  setLabels() {
+  setLabels () {
     // Label
     const size = 4
     const geometry = new THREE.PlaneBufferGeometry(size, size / 3)
@@ -232,7 +233,7 @@ export default class {
     this.container.add(mesh)
   }
 
-  setInteraction() {
+  setInteraction () {
     this.interactions = new Interaction({
       config: this.config,
       debug: this.debug,
@@ -247,7 +248,7 @@ export default class {
     })
   }
 
-  setReveal() {
+  setReveal () {
     this.reveal = {}
     this.reveal.floorShadowsProgress = 1
     this.reveal.previousFloorShadowsProgress = null
