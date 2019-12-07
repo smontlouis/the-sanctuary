@@ -70,6 +70,29 @@ export default class {
 
     animateHover(this.objects.interieurLabel, 0.04, 1)
 
+    this.objects.interieurLabel.on('click', () => {
+      updateObjProp(this.objects.couverture_2, o => {
+        o.material = o.material.clone()
+        o.material.depthWrite = false
+        o.material.transparent = true
+        TweenLite.to(o.material, 0.3, { opacity: 0 })
+      })
+
+      updateObjProp(this.objects.couverture_1, o => {
+        o.material = o.material.clone()
+        o.material.depthWrite = false
+        o.material.transparent = true
+        TweenLite.to(o.material, 0.3, { delay: 0.5, opacity: 0 })
+      })
+
+      updateObjProp(this.objects.couverture, o => {
+        o.material = o.material.clone()
+        o.material.depthWrite = false
+        o.material.transparent = true
+        TweenLite.to(o.material, 0.3, { delay: 1, opacity: 0 })
+      })
+    })
+
     console.log(this.objects)
   }
 }
