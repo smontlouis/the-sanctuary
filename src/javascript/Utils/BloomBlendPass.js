@@ -4,7 +4,7 @@ import * as THREE from 'three'
  * @author mattatz / http://mattatz.github.io/
  */
 
-export const BloomBlendPass = function(amount, opacity, resolution) {
+export const BloomBlendPass = function (amount, opacity, resolution) {
   THREE.Pass.call(this)
 
   this.amount = amount !== undefined ? amount : 1.0
@@ -118,14 +118,14 @@ THREE.BloomBlendPass.prototype = Object.assign(
   {
     constructor: THREE.BloomBlendPass,
 
-    render: function(renderer, writeBuffer, readBuffer, delta, maskActive) {
+    render: function (renderer, writeBuffer, readBuffer, delta, maskActive) {
       if (maskActive) renderer.context.disable(renderer.context.STENCIL_TEST)
 
       this.quad.material = this.blurMaterial
 
       // horizontal blur
-      this.blurMaterial.uniforms['tDiffuse'].value = readBuffer
-      this.blurMaterial.uniforms['increment'].value.set(
+      this.blurMaterial.uniforms.tDiffuse.value = readBuffer
+      this.blurMaterial.uniforms.increment.value.set(
         this.amount / readBuffer.width,
         0.0
       )
@@ -133,8 +133,8 @@ THREE.BloomBlendPass.prototype = Object.assign(
       renderer.render(this.scene, this.camera, this.renderTargetX, false)
 
       // vertical blur
-      this.blurMaterial.uniforms['tDiffuse'].value = this.renderTargetX
-      this.blurMaterial.uniforms['increment'].value.set(
+      this.blurMaterial.uniforms.tDiffuse.value = this.renderTargetX
+      this.blurMaterial.uniforms.increment.value.set(
         0.0,
         this.amount / this.renderTargetX.height
       )
@@ -145,9 +145,9 @@ THREE.BloomBlendPass.prototype = Object.assign(
 
       this.quad.material = this.blendMaterial
 
-      this.blendMaterial.uniforms['tDiffuse'].value = readBuffer
-      this.blendMaterial.uniforms['tBlend'].value = this.renderTargetY
-      this.blendMaterial.uniforms['opacity'].value = this.opacity
+      this.blendMaterial.uniforms.tDiffuse.value = readBuffer
+      this.blendMaterial.uniforms.tBlend.value = this.renderTargetY
+      this.blendMaterial.uniforms.opacity.value = this.opacity
 
       if (maskActive) renderer.context.enable(renderer.context.STENCIL_TEST)
 

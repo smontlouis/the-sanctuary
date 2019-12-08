@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import shaderFragment from '../shaders/floor/fragment.glsl'
 import shaderVertex from '../shaders/floor/vertex.glsl'
 
-export default function() {
+export default function () {
   const uniforms = {
     tBackground: { value: null }
   }

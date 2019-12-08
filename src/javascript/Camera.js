@@ -4,7 +4,7 @@ import { TweenLite } from 'gsap/TweenLite'
 import { Power1 } from 'gsap/EasePack'
 
 export default class Camera {
-  constructor(_options) {
+  constructor (_options) {
     // Options
     this.time = _options.time
     this.sizes = _options.sizes
@@ -28,7 +28,7 @@ export default class Camera {
     this.setOrbitControls()
   }
 
-  setAngle() {
+  setAngle () {
     // Set up
     this.angle = {}
 
@@ -82,7 +82,7 @@ export default class Camera {
     }
   }
 
-  setInstance() {
+  setInstance () {
     // Set up
     this.instance = new THREE.PerspectiveCamera(
       40,
@@ -109,7 +109,7 @@ export default class Camera {
     })
   }
 
-  setZoom() {
+  setZoom () {
     // Set up
     this.zoom = {}
     this.zoom.easing = 0.1
@@ -139,7 +139,7 @@ export default class Camera {
     })
   }
 
-  setOrbitControls() {
+  setOrbitControls () {
     // Set up
     this.orbitControls = new OrbitControls(
       this.instance,

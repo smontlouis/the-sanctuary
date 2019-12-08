@@ -17,7 +17,7 @@ import GlowsPass from './Passes/Glows.js'
 import Camera from './Camera.js'
 
 export default class Application {
-  constructor(_options) {
+  constructor (_options) {
     // Options
     this.$canvas = _options.$canvas
 
@@ -40,7 +40,7 @@ export default class Application {
     })
   }
 
-  setConfig() {
+  setConfig () {
     this.config = {}
     this.config.touch = false
 
@@ -65,7 +65,7 @@ export default class Application {
     )
   }
 
-  setRenderer() {
+  setRenderer () {
     // Scene
     this.scene = new THREE.Scene()
 
@@ -94,7 +94,7 @@ export default class Application {
     })
   }
 
-  setCamera() {
+  setCamera () {
     this.camera = new Camera({
       time: this.time,
       sizes: this.sizes,
@@ -112,7 +112,7 @@ export default class Application {
     })
   }
 
-  setPasses() {
+  setPasses () {
     this.passes = {}
 
     // Debug
@@ -321,7 +321,7 @@ export default class Application {
     })
   }
 
-  setWorld() {
+  setWorld () {
     this.world = new World({
       config: this.config,
       debug: this.debug,
@@ -336,7 +336,7 @@ export default class Application {
     this.scene.add(this.world.container)
   }
 
-  destructor() {
+  destructor () {
     this.time.off('tick')
     this.sizes.off('resize')
 

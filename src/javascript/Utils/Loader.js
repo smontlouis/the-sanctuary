@@ -8,7 +8,7 @@ export default class Resources extends EventEmitter {
   /**
    * Constructor
    */
-  constructor() {
+  constructor () {
     super()
 
     this.setLoaders()
@@ -21,7 +21,7 @@ export default class Resources extends EventEmitter {
   /**
    * Set loaders
    */
-  setLoaders() {
+  setLoaders () {
     this.loaders = []
 
     // Images
@@ -99,7 +99,7 @@ export default class Resources extends EventEmitter {
   /**
    * Load
    */
-  load(_resources = []) {
+  load (_resources = []) {
     for (const _resource of _resources) {
       this.toLoad++
       const extensionMatch = _resource.source.match(/\.([a-z]+)$/)
@@ -124,7 +124,7 @@ export default class Resources extends EventEmitter {
   /**
    * File load end
    */
-  fileLoadEnd(_resource, _data) {
+  fileLoadEnd (_resource, _data) {
     this.loaded++
     this.items[_resource.name] = _data
 

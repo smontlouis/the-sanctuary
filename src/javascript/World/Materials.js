@@ -3,7 +3,7 @@ import FloorShadowMaterial from '../Materials/FloorShadow.js'
 import MatcapMaterial from '../Materials/Matcap.js'
 
 export default class Materials {
-  constructor(_options) {
+  constructor (_options) {
     // Options
     this.resources = _options.resources
     this.debug = _options.debug
@@ -21,7 +21,7 @@ export default class Materials {
     this.setFloorShadow()
   }
 
-  setPures() {
+  setPures () {
     // Setup
     this.pures = {}
     this.pures.items = {}
@@ -33,7 +33,7 @@ export default class Materials {
     this.pures.items.yellow.name = 'pureYellow'
   }
 
-  setShades() {
+  setShades () {
     // Setup
     this.shades = {}
     this.shades.items = {}
@@ -186,7 +186,7 @@ export default class Materials {
     }
   }
 
-  setFloorShadow() {
+  setFloorShadow () {
     this.items.floorShadow = new FloorShadowMaterial()
     this.items.floorShadow.depthWrite = false
     this.items.floorShadow.shadowColor = '#e6987c'

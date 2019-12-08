@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import FloorMaterial from '../Materials/Floor.js'
 
 export default class Floor {
-  constructor(_options) {
+  constructor (_options) {
     // Options
     this.debug = _options.debug
 
