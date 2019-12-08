@@ -2,7 +2,6 @@ import * as THREE from 'three'
 import Floor from './Floor.js'
 import Materials from './Materials.js'
 import Interaction from './Interaction.js'
-import { TweenLite } from 'gsap/TweenLite'
 
 export default class {
   constructor (_options) {

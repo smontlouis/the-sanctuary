@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import canvg from 'canvg'
 
 import Loader from './Utils/Loader.js'
 import EventEmitter from './Utils/EventEmitter.js'

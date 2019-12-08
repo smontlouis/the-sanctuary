@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import FloorShadowMaterial from '../Materials/FloorShadow.js'
-import MatcapMaterial from '../Materials/Matcap.js'
+import MatcapMaterial from '../Materials/MatCap.js'
 
 export default class Materials {
   constructor (_options) {
