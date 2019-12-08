@@ -18,7 +18,7 @@ const animateHover = (obj, z, opacity) => {
   const originalPositionZ = obj.position.z
   const originalOpacity = obj.material.opacity
 
-  obj.on('mouseover', ev => {
+  const fnIn = ev => {
     document.body.style.cursor = 'pointer'
     if (opacity) {
       updateObjProp(obj, o => {
@@ -30,9 +30,12 @@ const animateHover = (obj, z, opacity) => {
     if (z) {
       TweenLite.to(obj.position, 0.3, { z: originalPositionZ + z })
     }
-  })
+  }
 
-  obj.on('mouseout', ev => {
+  obj.on('mouseover', fnIn)
+  obj.on('touchstart', fnIn)
+
+  const fnOut = ev => {
     document.body.style.cursor = 'default'
 
     const obj = ev.data.target
@@ -45,7 +48,10 @@ const animateHover = (obj, z, opacity) => {
     if (z) {
       TweenLite.to(obj.position, 0.3, { z: originalPositionZ })
     }
-  })
+  }
+
+  obj.on('touchend', fnOut)
+  obj.on('mouseout', fnOut)
 }
 
 const fade = (obj, delay = 0, duration = 0.3) => {
@@ -53,7 +59,13 @@ const fade = (obj, delay = 0, duration = 0.3) => {
     o.material = o.material.clone()
     o.material.depthWrite = false
     o.material.transparent = true
-    TweenLite.to(o.material, duration, { delay, opacity: 0 })
+    TweenLite.to(o.material, duration, {
+      delay,
+      opacity: 0,
+      onComplete: () => {
+        o.visible = false
+      }
+    })
   })
 }
 
@@ -79,13 +91,16 @@ export default class {
 
     animateHover(this.objects.interieurLabel, 0.04, 1)
 
-    this.objects.interieurLabel.on('click', () => {
+    const onClick = () => {
       fade(this.objects.tente)
       setTimeout(() => {
         fade(this.objects.murs_to_hide)
         fade(this.objects.poteaux_milieu)
       }, 1000)
-    })
+    }
+
+    this.objects.interieurLabel.on('click', onClick)
+    this.objects.interieurLabel.on('touchend', onClick)
 
     console.log(this.objects)
   }

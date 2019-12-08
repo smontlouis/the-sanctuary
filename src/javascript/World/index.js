@@ -58,26 +58,42 @@ export default class {
 
   updateMaterials (obj) {
     for (const child of obj.children) {
+      child.matrixAutoUpdate = false
+      child.updateMatrix()
+
       if (child instanceof THREE.Mesh) {
         let color = null
+        console.log(child.material.name)
         switch (child.material.name) {
           case 'Couverture 1':
             color = 'purple'
+            child.material = this.materials.shades.items[color]
+
             break
           case 'Couverture 2':
             color = 'blue'
+            child.material = this.materials.shades.items[color]
+
             break
           case 'Couverture 3':
             color = 'beige'
+            child.material = this.materials.shades.items[color]
+
             break
           case 'Airain':
             color = 'bronze'
+            child.material = this.materials.shades.items[color]
+
             break
           case 'Gold':
             color = 'gold'
+            child.material = this.materials.shades.items[color]
+
             break
           case 'Silver':
             color = 'silver'
+            child.material = this.materials.shades.items[color]
+
             break
           case 'Manne':
           case 'Wood':
@@ -85,22 +101,31 @@ export default class {
           case 'Ground':
           case 'Rope':
             color = 'brown'
+            child.material = this.materials.shades.items[color]
+
             break
           case 'Pierre':
             color = 'gray'
-            break
-          case 'Bougie':
-            color = 'yellow'
+            child.material = this.materials.shades.items[color]
+
             break
           case 'water':
             color = 'blue'
+            child.material = this.materials.shades.items[color]
+
+            break
+          case 'Bougie':
+            child.material = new THREE.MeshLambertMaterial({
+              emissive: '#ffca00'
+            })
+
             break
           case 'Drap':
           case 'Ground 2':
           default:
             color = 'white'
+            child.material = this.materials.shades.items[color]
         }
-        child.material = this.materials.shades.items[color]
         child.material.side = THREE.DoubleSide
       }
       if (child.children) {

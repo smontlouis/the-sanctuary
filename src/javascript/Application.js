@@ -291,9 +291,7 @@ export default class Application {
         this.passes.horizontalBlurPass.material.uniforms.uStrength.value.x > 0
       this.passes.verticalBlurPass.enabled =
         this.passes.verticalBlurPass.material.uniforms.uStrength.value.y > 0
-      this.passes.pixelPass.uniforms[
-        'pixelSize'
-      ].value = this.passes.pixelPass.pixelSize
+      this.passes.pixelPass.uniforms.pixelSize.value = this.passes.pixelPass.pixelSize
 
       // Renderer
       this.passes.composer.render()
@@ -315,7 +313,7 @@ export default class Application {
       this.passes.horizontalBlurPass.material.uniforms.uResolution.value.y = this.sizes.viewport.height
       this.passes.verticalBlurPass.material.uniforms.uResolution.value.x = this.sizes.viewport.width
       this.passes.verticalBlurPass.material.uniforms.uResolution.value.y = this.sizes.viewport.height
-      this.passes.pixelPass.uniforms['resolution'].value
+      this.passes.pixelPass.uniforms.resolution.value
         .set(window.innerWidth, window.innerHeight)
         .multiplyScalar(window.devicePixelRatio)
     })
