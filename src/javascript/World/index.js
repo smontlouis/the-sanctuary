@@ -103,7 +103,6 @@ export default class {
         }
         child.material = this.materials.shades.items[color]
         child.material.side = THREE.DoubleSide
-        child.material.transparent = true
       }
       if (child.children) {
         this.updateMaterials(child)
@@ -130,12 +129,9 @@ export default class {
       'couverture-lieu-tres-saint',
       'plots',
       'murs',
+      'murs_to_hide',
       'aies',
-      'mur-1',
-      'mur-2',
       'mur-west',
-      'poteaux-interieurs-1',
-      'poteaux-interieurs-2',
       'clou-rope',
       'cuve',
       'eau',
@@ -146,6 +142,7 @@ export default class {
       'autel-base',
       'autel-cornes',
       'poteaux-interieurs',
+      'poteaux_milieu',
       'table-des-pains',
       'bol-1',
       'bol-2',

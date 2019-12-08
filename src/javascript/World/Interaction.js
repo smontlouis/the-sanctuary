@@ -48,6 +48,15 @@ const animateHover = (obj, z, opacity) => {
   })
 }
 
+const fade = (obj, delay = 0, duration = 0.3) => {
+  updateObjProp(obj, o => {
+    o.material = o.material.clone()
+    o.material.depthWrite = false
+    o.material.transparent = true
+    TweenLite.to(o.material, duration, { delay, opacity: 0 })
+  })
+}
+
 export default class {
   constructor (_options) {
     // Options
@@ -69,5 +78,15 @@ export default class {
     )
 
     animateHover(this.objects.interieurLabel, 0.04, 1)
+
+    this.objects.interieurLabel.on('click', () => {
+      fade(this.objects.tente)
+      setTimeout(() => {
+        fade(this.objects.murs_to_hide)
+        fade(this.objects.poteaux_milieu)
+      }, 1000)
+    })
+
+    console.log(this.objects)
   }
 }
