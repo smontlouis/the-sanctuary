@@ -31,9 +31,10 @@
     "watcherGlob": "**"
   },
   "dependencies": {
-    "three": "^0.111.0",
-    "three.interaction": "^0.2.2",
+    "dat.gui": "^0.7.3",
     "gsap": "^2.1.3",
-    "dat.gui": "^0.7.3"
+    "on-change": "^1.6.2",
+    "three": "^0.111.0",
+    "three.interaction": "^0.2.2"
   }
 }

@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import * as dat from 'dat.gui'
+import { Interaction } from 'three.interaction'
 
 import Sizes from './Utils/Sizes.js'
 import Time from './Utils/Time.js'
@@ -38,6 +39,12 @@ export default class Application {
     this.resources.on('ready', () => {
       this.setWorld()
     })
+
+    this.interaction = new Interaction(
+      this.renderer,
+      this.scene,
+      this.camera.instance
+    )
   }
 
   setConfig () {
@@ -74,9 +81,7 @@ export default class Application {
       canvas: this.$canvas,
       alpha: true
     })
-    // this.renderer.setClearColor(0x414141, 1)
     this.renderer.setClearColor(0x000000, 1)
-    // this.renderer.setPixelRatio(Math.min(Math.max(window.devicePixelRatio, 1.5), 2))
     this.renderer.setPixelRatio(2)
     this.renderer.setSize(this.sizes.viewport.width, this.sizes.viewport.height)
     this.renderer.physicallyCorrectLights = true
@@ -328,8 +333,7 @@ export default class Application {
       sizes: this.sizes,
       camera: this.camera,
       renderer: this.renderer,
-      passes: this.passes,
-      scene: this.scene
+      passes: this.passes
     })
     this.scene.add(this.world.container)
   }

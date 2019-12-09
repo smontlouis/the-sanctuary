@@ -1,8 +1,8 @@
 import * as THREE from 'three'
-import { Interaction } from 'three.interaction'
 import { TweenLite } from 'gsap/TweenLite'
+import Store from '../Store'
 
-const updateObjProp = (obj, fn) => {
+export const updateObjProp = (obj, fn) => {
   if (obj instanceof THREE.Mesh) {
     fn(obj)
   }
@@ -14,11 +14,13 @@ const updateObjProp = (obj, fn) => {
   }
 }
 
-const animateHover = (obj, z, opacity) => {
+export const animateHover = (obj, z, opacity) => {
   const originalPositionZ = obj.position.z
   const originalOpacity = obj.material.opacity
 
   const fnIn = ev => {
+    if (Store.state.isTabernacleOpened) return
+
     document.body.style.cursor = 'pointer'
     if (opacity) {
       updateObjProp(obj, o => {
@@ -38,6 +40,8 @@ const animateHover = (obj, z, opacity) => {
   const fnOut = ev => {
     document.body.style.cursor = 'default'
 
+    if (Store.state.isTabernacleOpened) return
+
     const obj = ev.data.target
     if (opacity) {
       updateObjProp(obj, o => {
@@ -54,7 +58,7 @@ const animateHover = (obj, z, opacity) => {
   obj.on('mouseout', fnOut)
 }
 
-const fade = (obj, delay = 0, duration = 0.3) => {
+export const fade = (obj, delay = 0, duration = 0.3) => {
   updateObjProp(obj, o => {
     o.material = o.material.clone()
     o.material.depthWrite = false
@@ -67,41 +71,4 @@ const fade = (obj, delay = 0, duration = 0.3) => {
       }
     })
   })
-}
-
-export default class {
-  constructor (_options) {
-    // Options
-    this.config = _options.config
-    this.debug = _options.debug
-    this.resources = _options.resources
-    this.time = _options.time
-    this.sizes = _options.sizes
-    this.camera = _options.camera
-    this.renderer = _options.renderer
-    this.passes = _options.passes
-    this.objects = _options.objects
-    this.scene = _options.scene
-
-    const interaction = new Interaction(
-      this.renderer,
-      this.scene,
-      this.camera.instance
-    )
-
-    animateHover(this.objects.interieurLabel, 0.04, 1)
-
-    const onClick = () => {
-      fade(this.objects.tente)
-      setTimeout(() => {
-        fade(this.objects.murs_to_hide)
-        fade(this.objects.poteaux_milieu)
-      }, 1000)
-    }
-
-    this.objects.interieurLabel.on('click', onClick)
-    this.objects.interieurLabel.on('touchend', onClick)
-
-    console.log(this.objects)
-  }
 }

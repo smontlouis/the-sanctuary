@@ -199,18 +199,6 @@ export default class Materials {
       this.items.floorShadow.uniforms.uShadowColor.value = new THREE.Color(
         this.items.floorShadow.shadowColor
       )
-
-      // for (const _item of this.objects.items) {
-      //   for (const _child of _item.container.children) {
-      //     if (_child.material instanceof THREE.ShaderMaterial) {
-      //       if (_child.material.uniforms.uShadowColor) {
-      //         _child.material.uniforms.uShadowColor.value = new THREE.Color(
-      //           this.items.floorShadow.shadowColor
-      //         )
-      //       }
-      //     }
-      //   }
-      // }
     }
 
     // Debug
