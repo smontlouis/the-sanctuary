@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { animateHover } from '../Utils/Animation'
 import { state, subscribe, setState } from '../Store'
 
-class InterieurButton {
+class DeployButton {
   constructor () {
     this.render()
     this.interact()
@@ -13,13 +13,13 @@ class InterieurButton {
     animateHover(this.instance, 0.04, 1)
 
     const onClick = () => {
-      setState({ isTabernacleOpened: !state.isTabernacleOpened })
+      setState({ isTabernacleDeployed: !state.isTabernacleDeployed })
     }
     this.instance.on('click', onClick)
     this.instance.on('touchend', onClick)
 
     subscribe(
-      ({ isTabernacleOpened }) => ({ isTabernacleOpened }),
+      ({ isTabernacleDeployed }) => ({ isTabernacleDeployed }),
       (state) => {
         console.log('hello', state)
       }
@@ -31,7 +31,7 @@ class InterieurButton {
     const size = 4
     const geometry = new THREE.PlaneBufferGeometry(size, size / 3)
 
-    const texture = resources.items.interieurLabelTexture
+    const texture = resources.items.deployerLabelTexture
     texture.magFilter = THREE.NearestFilter
     texture.minFilter = THREE.LinearFilter
 
@@ -44,12 +44,12 @@ class InterieurButton {
     })
 
     const mesh = new THREE.Mesh(geometry, material)
-    mesh.position.set(5.5, 1, 0.01)
+    mesh.position.set(5.5, 6, 0.01)
     mesh.rotation.set(0, 0, Math.PI / 2)
 
-    this.instance = objects.interieurLabel = mesh
+    this.instance = objects.deployerLabel = mesh
     worldContainer.add(mesh)
   }
 }
 
-export default InterieurButton
+export default DeployButton

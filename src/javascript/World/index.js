@@ -4,31 +4,27 @@ import Floor from './Floor.js'
 import Materials from './Materials.js'
 import Tabernacle from './Tabernacle.js'
 import InterieurButton from './InterieurButton'
+import DeployButton from './DeployButton'
+
+import { state } from '../Store'
+
 export default class {
   constructor (_options) {
-    // Options
-    this.config = _options.config
-    this.debug = _options.debug
-    this.resources = _options.resources
-    this.time = _options.time
-    this.sizes = _options.sizes
-    this.camera = _options.camera
-    this.renderer = _options.renderer
-    this.passes = _options.passes
+    const { debug, resources } = state
 
-    this.materials = new Materials({
-      resources: this.resources,
+    state.materials = new Materials({
+      resources,
       debug: this.debugFolder
     })
 
     // Debug
-    if (this.debug) {
-      this.debugFolder = this.debug.addFolder('world')
+    if (debug) {
+      this.debugFolder = debug.addFolder('world')
     }
 
     // Set up
-    this.container = new THREE.Object3D()
-    this.container.matrixAutoUpdate = false
+    state.worldContainer = this.container = new THREE.Object3D()
+    state.worldContainer.matrixAutoUpdate = false
 
     // this.setAxes()
     this.setFloor()
@@ -40,7 +36,7 @@ export default class {
 
   setAxes () {
     this.axis = new THREE.AxesHelper()
-    this.container.add(this.axis)
+    state.worldContainer.add(this.axis)
   }
 
   setFloor () {
@@ -48,25 +44,22 @@ export default class {
       debug: this.debugFolder
     })
 
-    this.container.add(this.floor.container)
+    state.worldContainer.add(this.floor.container)
   }
 
   setTabernacle () {
-    this.tabernacle = new Tabernacle({
-      resources: this.resources,
-      container: this.container,
-      materials: this.materials
-    })
+    state.tabernacle = new Tabernacle()
   }
 
   setFloorShadow () {
+    const { resources, materials, worldContainer } = state
     // Create floor manually because of missing UV
     const geometry = new THREE.PlaneBufferGeometry(62.5, 62.5, 0, 0)
-    const material = this.materials.items.floorShadow.clone()
+    const material = materials.items.floorShadow.clone()
 
-    material.uniforms.tShadow.value = this.resources.items.floorShadowTexture
+    material.uniforms.tShadow.value = resources.items.floorShadowTexture
     material.uniforms.uShadowColor.value = new THREE.Color(
-      this.materials.items.floorShadow.shadowColor
+      materials.items.floorShadow.shadowColor
     )
     material.uniforms.uAlpha.value = 0
 
@@ -77,18 +70,16 @@ export default class {
 
     this.floorShadows = []
     this.floorShadows.push(mesh)
-    this.container.add(mesh)
+    worldContainer.add(mesh)
   }
 
   setLabels () {
-    new InterieurButton({
-      resources: this.resources,
-      tabernacle: this.tabernacle,
-      container: this.container
-    })
+    new InterieurButton()
+    new DeployButton()
   }
 
   setReveal () {
+    const { debug, time } = state
     this.reveal = {}
     this.reveal.floorShadowsProgress = 1
     this.reveal.previousFloorShadowsProgress = null
@@ -96,7 +87,7 @@ export default class {
     // Go method
     this.reveal.go = () => {
       // Time tick
-      this.time.on('tick', () => {
+      time.on('tick', () => {
         // Matcap progress changed
         if (
           this.reveal.floorShadowsProgress !==
@@ -113,7 +104,7 @@ export default class {
       })
 
       // Debug
-      if (this.debug) {
+      if (debug) {
         this.debugFolder
           .add(this.reveal, 'floorShadowsProgress')
           .step(0.0001)

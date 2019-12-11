@@ -1,4 +1,3 @@
-const clone = o => JSON.parse(JSON.stringify(o))
 const isObject = val => val != null && typeof val === 'object' && Array.isArray(val) === false
 const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b)
 
@@ -30,32 +29,19 @@ class Pubsub {
   }
 }
 
-class Store {
-  constructor (initialState = {}) {
-    if (!isObject(initialState)) throw new Error('initial state must be a object')
-    this.internalState = initialState
-    this.pubsub = new Pubsub()
-  }
+const initialState = {}
+const pubsub = new Pubsub()
 
-  get state () {
-    return clone(this.internalState)
-  }
+export let state = initialState
 
-  set state (value) {
-    return false
-  }
-
-  setState (value) {
-    if (!isObject(value)) throw new Error('value must be a object')
-    const currentState = clone(this.internalState)
-    const nextState = Object.assign(clone(currentState), clone(value))
-    this.pubsub.publish(currentState, nextState)
-    this.internalState = nextState
-  }
-
-  subscribe (config, callback) {
-    return this.pubsub.subscribe(callback, config)
-  }
+export const setState = (value) => {
+  if (!isObject(value)) throw new Error('value must be a object')
+  const currentState = state
+  const nextState = { ...currentState, ...value }
+  pubsub.publish(currentState, nextState)
+  state = nextState
 }
 
-export default new Store()
+export const subscribe = (config, callback) => {
+  return pubsub.subscribe(callback, config)
+}

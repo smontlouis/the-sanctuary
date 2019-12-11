@@ -1,6 +1,8 @@
 import * as THREE from 'three'
 import { TweenLite } from 'gsap/TweenLite'
-import Store from '../Store'
+import { Elastic } from 'gsap/EasePack'
+
+import { state } from '../Store'
 
 export const updateObjProp = (obj, fn) => {
   if (obj instanceof THREE.Mesh) {
@@ -19,7 +21,7 @@ export const animateHover = (obj, z, opacity) => {
   const originalOpacity = obj.material.opacity
 
   const fnIn = ev => {
-    if (Store.state.isTabernacleOpened) return
+    if (state.isTabernacleOpened) return
 
     document.body.style.cursor = 'pointer'
     if (opacity) {
@@ -40,7 +42,7 @@ export const animateHover = (obj, z, opacity) => {
   const fnOut = ev => {
     document.body.style.cursor = 'default'
 
-    if (Store.state.isTabernacleOpened) return
+    if (state.isTabernacleOpened) return
 
     const obj = ev.data.target
     if (opacity) {
@@ -58,7 +60,7 @@ export const animateHover = (obj, z, opacity) => {
   obj.on('mouseout', fnOut)
 }
 
-export const fade = (obj, delay = 0, duration = 0.3) => {
+export const fadeOut = (obj, delay = 0, duration = 0.3) => {
   updateObjProp(obj, o => {
     o.material = o.material.clone()
     o.material.depthWrite = false
@@ -71,4 +73,24 @@ export const fade = (obj, delay = 0, duration = 0.3) => {
       }
     })
   })
+}
+
+export const fadeIn = (obj, delay = 0, duration = 0.3) => {
+  updateObjProp(obj, o => {
+    o.visible = true
+    o.material.depthWrite = true
+
+    TweenLite.to(o.material, duration, {
+      delay,
+      opacity: 1,
+      onComplete: () => {
+        o.material.transparent = false
+      }
+    })
+  })
+}
+
+export const move = (obj, position, delay) => {
+  obj.matrixAutoUpdate = true
+  TweenLite.to(obj.position, 1, { ease: Elastic.easeOut.config(0.3, 0.3), ...position, onComplete: () => { obj.matrixAutoUpdate = false } })
 }

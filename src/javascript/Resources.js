@@ -27,7 +27,8 @@ import floorShadowSource from '../models/static/floorShadow.png'
 import tabernacle from '../models/tabernacle/base.glb'
 
 // Text
-import interieurLabelSource from '../models/static/other.png'
+import interieurLabelSource from '../models/static/interieur.png'
+import deployerLabelSource from '../models/static/deployer.png'
 
 export default class Resources extends EventEmitter {
   constructor () {
@@ -65,6 +66,10 @@ export default class Resources extends EventEmitter {
       {
         name: 'interieurLabel',
         source: interieurLabelSource,
+        type: 'texture'
+      }, {
+        name: 'deployerLabel',
+        source: deployerLabelSource,
         type: 'texture'
       },
 

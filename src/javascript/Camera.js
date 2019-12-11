@@ -2,14 +2,11 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { TweenLite } from 'gsap/TweenLite'
 import { Power1 } from 'gsap/EasePack'
+import { state } from './Store'
 
 export default class Camera {
   constructor (_options) {
-    // Options
-    this.time = _options.time
-    this.sizes = _options.sizes
-    this.renderer = _options.renderer
-    this.debug = _options.debug
+    const { debug } = state
 
     // Set up
     this.target = new THREE.Vector3(0, 0, 0)
@@ -17,9 +14,8 @@ export default class Camera {
     this.easing = 0.15
 
     // Debug
-    if (this.debug) {
-      this.debugFolder = this.debug.addFolder('camera')
-      // this.debugFolder.open()
+    if (debug) {
+      this.debugFolder = debug.addFolder('camera')
     }
 
     this.setAngle()
@@ -29,6 +25,7 @@ export default class Camera {
   }
 
   setAngle () {
+    const { debug } = state
     // Set up
     this.angle = {}
 
@@ -51,7 +48,7 @@ export default class Camera {
     }
 
     // Debug
-    if (this.debug) {
+    if (debug) {
       this.debugFolder
         .add(this, 'easing')
         .step(0.0001)
@@ -83,10 +80,11 @@ export default class Camera {
   }
 
   setInstance () {
+    const { sizes } = state
     // Set up
     this.instance = new THREE.PerspectiveCamera(
       40,
-      this.sizes.viewport.width / this.sizes.viewport.height,
+      sizes.viewport.width / sizes.viewport.height,
       1,
       1000
     )
@@ -102,14 +100,15 @@ export default class Camera {
     this.instance.lookAt(new THREE.Vector3())
 
     // Resize event
-    this.sizes.on('resize', () => {
+    sizes.on('resize', () => {
       this.instance.aspect =
-        this.sizes.viewport.width / this.sizes.viewport.height
+        sizes.viewport.width / sizes.viewport.height
       this.instance.updateProjectionMatrix()
     })
   }
 
   setZoom () {
+    const { time } = state
     // Set up
     this.zoom = {}
     this.zoom.easing = 0.1
@@ -131,7 +130,7 @@ export default class Camera {
     )
 
     // Time tick event
-    this.time.on('tick', () => {
+    time.on('tick', () => {
       this.zoom.value +=
         (this.zoom.targetValue - this.zoom.value) * this.zoom.easing
       this.zoom.distance =
@@ -140,10 +139,11 @@ export default class Camera {
   }
 
   setOrbitControls () {
+    const { debug, renderer } = state
     // Set up
     this.orbitControls = new OrbitControls(
       this.instance,
-      this.renderer.domElement
+      renderer.domElement
     )
     this.orbitControls.enabled = true
     // this.orbitControls.enableRotate = false
@@ -160,7 +160,7 @@ export default class Camera {
     }
 
     // Debug
-    if (this.debug) {
+    if (debug) {
       this.debugFolder
         .add(this.orbitControls, 'enabled')
         .name('orbitControlsEnabled')

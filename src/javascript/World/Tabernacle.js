@@ -1,60 +1,61 @@
 import * as THREE from 'three'
+import { move } from '../Utils/Animation'
 
-import { fade } from '../Utils/Animation'
-import Store from '../Store'
+import { state, subscribe } from '../Store'
 
 class Tabernacle {
-  constructor ({ resources, container, materials }) {
-    this.materials = materials
-    this.objects = {}
+  constructor () {
+    const { resources, worldContainer } = state
+    state.objects = {}
 
-    this.tabernacle = resources.items.tabernacle.scene
-    this.updateMaterials(this.tabernacle)
+    this.instance = resources.items.tabernacle.scene
+    this.updateMaterials(this.instance)
 
-    this.tabernacle.rotation.set(Math.PI / 2, 0, 0)
-    container.add(this.tabernacle)
+    this.instance.rotation.set(Math.PI / 2, 0, 0)
+    worldContainer.add(this.instance)
 
     this.setObjects()
     this.interact()
   }
 
   updateMaterials (obj) {
+    const { materials } = state
+
     for (const child of obj.children) {
       child.matrixAutoUpdate = false
       child.updateMatrix()
 
       if (child instanceof THREE.Mesh) {
         let color = null
-        console.log(child.material.name)
         switch (child.material.name) {
           case 'Couverture 1':
             color = 'purple'
-            child.material = this.materials.shades.items[color]
+            child.material = materials.shades.items[color]
 
             break
           case 'Couverture 2':
             color = 'blue'
-            child.material = this.materials.shades.items[color]
+            child.material = materials.shades.items[color]
 
             break
           case 'Couverture 3':
             color = 'beige'
-            child.material = this.materials.shades.items[color]
+            child.material = materials.shades.items[color]
 
             break
           case 'Airain':
             color = 'bronze'
-            child.material = this.materials.shades.items[color]
+            child.material = materials.shades.items[color]
 
             break
           case 'Gold':
             color = 'gold'
-            child.material = this.materials.shades.items[color]
+            child.material = materials.shades.items[color]
 
             break
           case 'Silver':
             color = 'silver'
-            child.material = this.materials.shades.items[color]
+            child.material = materials.shades.items[color]
 
             break
           case 'Manne':
@@ -63,17 +64,17 @@ class Tabernacle {
           case 'Ground':
           case 'Rope':
             color = 'brown'
-            child.material = this.materials.shades.items[color]
+            child.material = materials.shades.items[color]
 
             break
           case 'Pierre':
             color = 'gray'
-            child.material = this.materials.shades.items[color]
+            child.material = materials.shades.items[color]
 
             break
           case 'water':
             color = 'blue'
-            child.material = this.materials.shades.items[color]
+            child.material = materials.shades.items[color]
 
             break
           case 'Bougie':
@@ -86,7 +87,7 @@ class Tabernacle {
           case 'Ground 2':
           default:
             color = 'white'
-            child.material = this.materials.shades.items[color]
+            child.material = materials.shades.items[color]
         }
         child.material.side = THREE.DoubleSide
       }
@@ -135,7 +136,8 @@ class Tabernacle {
       'bol-de-manne',
       'propitiatoire',
       'tabernacle-base',
-      'table-de-pierre'
+      'table-de-pierre',
+      'tentecut'
     ]
 
     const lookFor = name => {
@@ -151,27 +153,52 @@ class Tabernacle {
         }
       }
 
-      return descend(this.tabernacle)
+      return descend(this.instance)
     }
-    console.log(this.tabernacle)
 
     meshArray.forEach(element => {
-      this.objects[element] = lookFor(element)
+      state.objects[element] = lookFor(element)
     })
+    console.log(this.instance)
+    console.log(state.objects)
   }
 
   interact () {
-    Store.subscribe(
+    const { objects } = state
+
+    // Show inside of tabernacle
+    subscribe(
       ({ isTabernacleOpened }) => ({ isTabernacleOpened }),
       (props) => {
         if (props.isTabernacleOpened) {
-          fade(this.objects.tente)
+          objects.tente.visible = false
           setTimeout(() => {
-            fade(this.objects.murs_to_hide)
-            fade(this.objects.poteaux_milieu)
-          }, 1000)
+            objects.murs_to_hide.visible = false
+            objects.poteaux_milieu.visible = false
+          }, 500)
         } else {
-          console.log('appear')
+          objects.murs_to_hide.visible = true
+          objects.poteaux_milieu.visible = true
+          setTimeout(() => {
+            objects.tente.visible = true
+          }, 500)
+        }
+      }
+    )
+
+    // Deploy tabernacle
+    subscribe(
+      ({ isTabernacleDeployed }) => ({ isTabernacleDeployed }),
+      (props) => {
+        if (props.isTabernacleDeployed) {
+          objects.tentecut.visible = false
+          move(objects.couverture_2, { y: 13, z: objects.couverture_2.position.z - 7 })
+          move(objects.couverture_1, { y: 11, z: objects.couverture_1.position.z - 5 }, 0.1)
+          move(objects.couverture, { y: 9, z: objects.couverture.position.z - 3 }, 0.2)
+          move(objects['converture-lieu-saint'], { y: 7, z: objects['converture-lieu-saint'].position.z - 1 }, 0.3)
+          move(objects['couverture-lieu-tres-saint'], { y: 7, z: objects['couverture-lieu-tres-saint'].position.z - 1 }, 0.3)
+        } else {
+
         }
       }
     )
