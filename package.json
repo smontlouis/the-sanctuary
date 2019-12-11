@@ -13,10 +13,14 @@
   },
   "devDependencies": {
     "eslint": "^6.7.2",
+    "eslint-config-airbnb": "^18.0.1",
     "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "eslint-plugin-standard": "^4.0.1",
     "glslify-bundle": "^5.1.1",
     "glslify-deps": "^1.3.1",
@@ -34,6 +38,8 @@
     "dat.gui": "^0.7.3",
     "gsap": "^2.1.3",
     "on-change": "^1.6.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "three": "^0.111.0",
     "three.interaction": "^0.2.2"
   }

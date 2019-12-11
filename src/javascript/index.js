@@ -1,15 +1,4 @@
-import Application from './Application.js'
+import ReactDOM from 'react-dom'
+import React from 'react'
 
-window.application = new Application({
-  $canvas: document.querySelector('.js-canvas'),
-  useComposer: true
-})
-
-if (module.hot) {
-  module.hot.dispose(() => {
-    window.application.destructor()
-    window.application = null
-  })
-
-  // module.hot.accept()
-}
+ReactDOM.render(<div>coucou</div>, document.getElementById('app'))
