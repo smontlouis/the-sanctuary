@@ -34,19 +34,20 @@ const Passes = () => {
         attachArray="passes"
         args={[BlurPass]}
         material-uniforms-uResolution-value={[size.width, size.height]}
-        material-uniforms-uStrength-value={[2, 0]}
+        material-uniforms-uStrength-value={[1, 0]}
         renderToScreen
       />
       <shaderPass
         attachArray="passes"
         args={[BlurPass]}
         material-uniforms-uResolution-value={[size.width, size.height]}
-        material-uniforms-uStrength-value={[0, 2]}
+        material-uniforms-uStrength-value={[0, 1]}
         renderToScreen
       />
       <unrealBloomPass
         attachArray="passes"
         args={[new THREE.Vector2(window.innerWidth, window.innerHeight), 0, 0, 0]}
+        renderToScreen
       />
     </effectComposer>
   )

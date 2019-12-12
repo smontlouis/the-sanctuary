@@ -1,4 +1,3 @@
-import React from 'react'
 import * as THREE from 'three'
 import { useLoader } from 'react-three-fiber'
 import useStore from './Store/store'
@@ -37,7 +36,7 @@ const resources = [
   { texture: matcapYellowSource, name: 'matcapYellow' }
 ]
 
-const MatCaps = () => {
+const useMatcaps = () => {
   const setMatcaps = useStore(state => state.setMatcaps)
   const textures = useLoader(
     THREE.TextureLoader,
@@ -57,8 +56,6 @@ const MatCaps = () => {
     }, {})
 
   setMatcaps(materials)
-
-  return null
 }
 
-export default MatCaps
+export default useMatcaps

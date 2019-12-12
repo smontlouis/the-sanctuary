@@ -23,6 +23,7 @@ module.exports = {
     'react'
   ],
   rules: {
+    'space-before-function-paren': 'off',
     'no-return-assign': 'off',
     'prettier/prettier': [
       "error",

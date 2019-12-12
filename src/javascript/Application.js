@@ -5,15 +5,13 @@ import Camera from './Camera'
 import World from './World'
 import OrbitControls from './OrbitControls'
 import Passes from './Passes'
-import MatCaps from './MatCaps'
 
 const App = () => {
   return (
     <Canvas
+      pixelRatio={2}
       onCreated={({ gl, size }) => {
         gl.setClearColor(0x000000, 1)
-        gl.setPixelRatio(2)
-        gl.setSize(size.width, size.height)
         gl.physicallyCorrectLights = true
         gl.gammaFactor = 2.2
         gl.gammaOutPut = true
@@ -24,7 +22,6 @@ const App = () => {
       <OrbitControls />
       <Passes />
       <Suspense fallback={null}>
-        <MatCaps />
         <World />
       </Suspense>
     </Canvas>
