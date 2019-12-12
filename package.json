@@ -14,10 +14,12 @@
   "devDependencies": {
     "eslint": "^6.7.2",
     "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
@@ -27,7 +29,7 @@
     "howler": "^2.1.2",
     "parcel-bundler": "^1.12.3",
     "parcel-plugin-asset-copier": "^1.0.0",
-    "parcel-plugin-static-files-copy": "^2.1.2",
+    "parcel-plugin-static-files-copy": "^2.2.1",
     "shx": "^0.3.2"
   },
   "staticFiles": {
@@ -37,10 +39,14 @@
   "dependencies": {
     "dat.gui": "^0.7.3",
     "gsap": "^2.1.3",
+    "immer": "^5.0.1",
     "on-change": "^1.6.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "three": "^0.111.0",
-    "three.interaction": "^0.2.2"
+    "prettier": "^1.19.1",
+    "react": ">=16.11",
+    "react-dom": ">=16.11",
+    "react-three-fiber": "^3.0.16",
+    "three": ">=0.110",
+    "three.interaction": "^0.2.2",
+    "zustand": "^2.2.1"
   }
 }

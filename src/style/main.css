@@ -15,7 +15,7 @@ html
     overflow: hidden;
 }
 
-.canvas
+#app
 {
     position: fixed;
     top: 0;
@@ -24,7 +24,7 @@ html
     height: 100%;
 }
 
-.canvas.has-cursor-pointer
+#app.has-cursor-pointer
 {
     cursor: pointer;
 }
