@@ -34,7 +34,7 @@
     "dat.gui": "^0.7.3",
     "gsap": "^2.1.3",
     "on-change": "^1.6.2",
-    "three": "^0.111.0",
+    "three": "^0.125.0",
     "three.interaction": "^0.2.2"
   }
 }
